@@ -1,0 +1,96 @@
+<style>
+    /* Existing styles remain the same */
+
+    /* Add these new styles */
+    @media (max-width: 991.98px) {
+        .sidenav {
+            height: 100%;
+            width: 250px;
+            /* Set fixed width */
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: -250px;
+            /* Start off-screen */
+            background-color: #343a40;
+            overflow-x: hidden;
+            transition: transform 0.3s ease-in-out;
+            padding-top: 60px;
+        }
+
+        .sidenav .navbar-nav {
+            width: 250px;
+            padding: 0 15px;
+        }
+
+        .sidenav .nav-link {
+            padding: 15px 0;
+            color: white;
+            display: block;
+        }
+
+        .sidenav.show {
+            transform: translateX(-256px);
+            /* Slide in */
+            width: 250px;
+        }
+
+        .sidenav-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-box-open me-2"></i>
+            StorageHub
+        </a>
+
+        <button class="navbar-toggler" type="button" onclick="toggleNav()" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse sidenav" id="navbarNav">
+            <span class="sidenav-close" onclick="toggleNav()">×</span>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ms-2" href="#">Sign In</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    function toggleNav() {
+        document.getElementById("navbarNav").classList.toggle("show");
+    }
+
+    // Close sidenav when clicking outside
+    document.addEventListener('click', function (event) {
+        const nav = document.getElementById("navbarNav");
+        const toggler = document.querySelector(".navbar-toggler");
+        if (!nav.contains(event.target) && !toggler.contains(event.target) && nav.classList.contains("show")) {
+            nav.classList.remove("show");
+        }
+    });
+</script>
