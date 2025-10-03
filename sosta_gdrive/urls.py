@@ -20,5 +20,5 @@ from account.views import login_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', login_page),
+    path('', login_page,name='home'),
 ]

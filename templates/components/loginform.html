@@ -65,7 +65,7 @@ body {
     <div class="h2 text-light">Login</div>
     <form class="auth-form" method="post" action="">
         {% csrf_token %}
-        <input type="email" class="auth-input" placeholder="Email" name="Email" required>
+        <input type="text" class="auth-input" placeholder="Email" name="Email" required>
         <input type="password" class="auth-input" placeholder="Password" name="password" required>
         <button type="submit" class="auth-button">Login</button>
         <div class="auth-switch">
