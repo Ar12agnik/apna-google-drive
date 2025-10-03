@@ -1,10 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+<style>
+.auth-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    min-height: 350px; /* adjust as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* center content vertically */
+}
 
-</body>
-</html>
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-input {
+    padding: 10px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.auth-button {
+    padding: 12px;
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.auth-button:hover {
+    background: #0056b3;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 15px;
+    color: #fff;
+}
+
+.auth-switch a {
+    color: #007bff;
+    text-decoration: none;
+}
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e1e2f, #3a3a5a);
+    font-family: Arial, sans-serif;
+}
+</style>
+
+<div class="auth-container" id="login_div">
+    <div class="h2 text-light">Login</div>
+    <form class="auth-form" method="post" action="">
+        {% csrf_token %}
+        <input type="email" class="auth-input" placeholder="Email" name="Email" required>
+        <input type="password" class="auth-input" placeholder="Password" name="password" required>
+        <button type="submit" class="auth-button">Login</button>
+        <div class="auth-switch">
+            Don't have an account? <a href="#" id="login">Sign up</a>
+        </div>
+    </form>
+</div>
+<div class="auth-container visually-hidden" id="signup_div">
+    <div class="h2 text-light">Sign Up</div>
+    <form class="auth-form">
+        <input type="text" class="auth-input" placeholder="Full Name" required>
+        <input type="email" class="auth-input" placeholder="Email" required>
+        <input type="password" class="auth-input" placeholder="Password" required>
+        <input type="password" class="auth-input" placeholder="Confirm Password" required>
+        <button type="submit" class="auth-button" >Sign Up</button>
+        <div class="auth-switch">
+            Already have an account? <a href="#" id="signup">Login</a>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#signup").click(function (){
+            $("#login_div").removeClass("visually-hidden")
+            $("#signup_div").addClass("visually-hidden")
+        })
+        $("#login").click(function (){
+            $("#signup_div").removeClass("visually-hidden")
+            $("#login_div").addClass("visually-hidden")
+        })
+    });
+</script>
