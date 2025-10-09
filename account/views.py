@@ -14,5 +14,6 @@ def login_page(request):
             return HttpResponse("Auth Successful")
         else:
             return redirect('home')
-        return render(request,"base/base.html")
-    
+def logout_view(request):
+    logout(request)
+    return redirect('home')
