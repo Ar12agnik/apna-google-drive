@@ -63,10 +63,12 @@ body {
 
 <div class="auth-container" id="login_div">
     <div class="h2 text-light">Login</div>
-    <form class="auth-form" method="post" action="">
+    <form class="auth-form" method="post" action="{% url 'home' %}">
         {% csrf_token %}
         <input type="text" class="auth-input" placeholder="Email" name="Email" required>
         <input type="password" class="auth-input" placeholder="Password" name="password" required>
+        <input type="hidden" name="login_or_signup" value="0">
+
         <button type="submit" class="auth-button">Login</button>
         <div class="auth-switch">
             Don't have an account? <a href="#" id="login">Sign up</a>
@@ -75,11 +77,14 @@ body {
 </div>
 <div class="auth-container visually-hidden" id="signup_div">
     <div class="h2 text-light">Sign Up</div>
-    <form class="auth-form">
-        <input type="text" class="auth-input" placeholder="Full Name" required>
-        <input type="email" class="auth-input" placeholder="Email" required>
-        <input type="password" class="auth-input" placeholder="Password" required>
-        <input type="password" class="auth-input" placeholder="Confirm Password" required>
+    <form class="auth-form" method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        <input type="text" class="auth-input" placeholder="First Name" name="FName" required>
+        <input type="text" class="auth-input" placeholder="last Name" name="LName" required>
+        <input type="email" class="auth-input" placeholder="Email" name="Email_sup" required>
+        <input type="password" class="auth-input" placeholder="Password" name="Pwd1" required>
+        <input type="password" class="auth-input" placeholder="Confirm Password" name="Pwd2" required>
+        <input type="hidden" name="login_or_signup" value="1">
         <button type="submit" class="auth-button" >Sign Up</button>
         <div class="auth-switch">
             Already have an account? <a href="#" id="signup">Login</a>
@@ -96,5 +101,30 @@ body {
             $("#signup_div").removeClass("visually-hidden")
             $("#login_div").addClass("visually-hidden")
         })
+        $(".auth-form").on('submit', function(e) {
+            if ($(this).find('input[name="login_or_signup"]').val() === "1") {
+                e.preventDefault();
+                let pwd1 = $('input[name="Pwd1"]').val();
+                let pwd2 = $('input[name="Pwd2"]').val();
+                let email = $('input[name="Email_sup"]').val();
+                
+                if (pwd1 !== pwd2) {
+                    alert("Passwords do not match!");
+                    return false;
+                }
+                
+                if (pwd1.length < 8) {
+                    alert("Password must be at least 8 characters long!");
+                    return false;
+                }
+                
+                if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                    alert("Please enter a valid email address!");
+                    return false;
+                }
+                
+                this.submit();
+            }
+        });
     });
 </script>

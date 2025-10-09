@@ -7,6 +7,7 @@ def login_page(request):
     if request.method == "GET":
         return render(request,'account/login.html')
     elif request.method == "POST":
+        login_or_register = request.POST.get("login_or_signup")
         name=request.POST.get('Email');
         password=request.POST.get('password');
         if authenticate(request ,username=name, password=password):
@@ -17,3 +18,18 @@ def login_page(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+def register(request):
+    # return HttpResponse("gfyhdgdshcsdsyuf ewgfyirifgdsivgisdgvisdgvisd")
+    if request.method == 'POST':
+        email = request.POST.get('Email_sup')
+        password = request.POST.get('Pwd2')
+        FName = request.POST.get('FName')
+        LName = request.POST.get('LName')
+        username = email
+        user=User.objects.get(email=email)
+        if user is None:
+            user_c=User.objects.create_user(username=username,email=email,password=password,first_name =FName,last_name = LName)
+            user_c.save()
+            return HttpResponse("User Created!")
+        else:
+            return redirect
