@@ -7,7 +7,7 @@ from sosta_gdrive import settings
 def add_to_group(sender,instance,created, **kwargs):
     if created:
         print("triggered")
-        grp=Group.objects.get_or_create(name="users")
+        grp,created=Group.objects.get_or_create(name="users")
         instance.groups.add(grp)
 
 @receiver(post_save,sender = User)
@@ -16,6 +16,4 @@ def notify_admins(sender,instance,created,**kwargs):
         admin = User.objects.get(is_staff=True,email__isnull=False)
         Subject=f"Pending Aproval for manager"
         message=f"Hey {admin.first_name}!\n {instance.username} needs your approval To become a manager!\n Please do the needful! \n please note that you  can eather approve the request or reject it! "
-        send_mail(Subject,message,from_email=settings.DEFAULT_FROM_EMAIL,recipient_list=list(admin.email),fail_silently=True)
-        
-        
+        send_mail(Subject,message,from_email=settings.DEFAULT_FROM_EMAIL,recipient_list=[admin.email],fail_silently=False)
