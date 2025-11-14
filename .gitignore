@@ -1,3 +1,6 @@
 .env
 myenv/
 **/myenv/
+mylinuxenv/
+.idea/
+__pycache__/
